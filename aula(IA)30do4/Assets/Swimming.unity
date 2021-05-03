@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 1733855665772604, guid: b0489fdb6d64a4a4ba8e194e561d60cd, type: 3}
-  numFish: 20
+  numFish: 420
   allFish:
   - {fileID: 0}
   - {fileID: 0}
@@ -350,8 +350,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   swinLimits: {x: 5, y: 5, z: 5}
-  minSpeed: 5
-  maxSpeed: 5
+  minSpeed: 3
+  maxSpeed: 3
 --- !u!4 &1634793439
 Transform:
   m_ObjectHideFlags: 0
