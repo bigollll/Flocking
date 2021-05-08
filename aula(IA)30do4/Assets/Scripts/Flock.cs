@@ -18,16 +18,25 @@ public class Flock : MonoBehaviour
     void Update()
     {
         Bounds b = new Bounds(myManager.transform.position, myManager.swinLimits * 2); //faz voltar pro ponto central
-        if(!b.Contains(transform.position))
+
+        RaycastHit hit = new RaycastHit();                                             //pegando raycast do peixe
+        Vector3 direction = myManager.transform.position - transform.position;         
+        
+        if(!b.Contains(transform.position))                                                 //evita colisão
         {
             turning = true;
+            direction = myManager.transform.position - transform.position;
+        }
+        else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))
+        {
+            turning = true;
+            direction = Vector3.Reflect(this.transform.forward, hit.normal);
         }
         else
             turning = false;
 
         if(turning)       //acha a rotação
         {
-            Vector3 direction = myManager.transform.position - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), myManager.rotationSpeed * Time.deltaTime);
         }
         else
@@ -36,9 +45,6 @@ public class Flock : MonoBehaviour
                 speed = Random.Range(myManager.minSpeed, myManager.maxSpeed);
             if(Random.Range(0, 100)< 20) 
                 ApplyRules();
-            
-
-            
         }
        
         transform.Translate(0, 0, Time.deltaTime * speed);        //movimentação
@@ -55,7 +61,7 @@ public class Flock : MonoBehaviour
         float nDistance;                   //ve a distancia entre eles
         int groupSize = 0;                 //monta outros grupos de peixes se o distanciamento deles for grande
    
-        foreach(GameObject go in gos)
+        foreach(GameObject go in gos)      //faz novos grupos com qnd os peixes estão longe
         {
             if(go != this.gameObject)
             {

@@ -12,9 +12,9 @@ public class FlockManager : MonoBehaviour
 
     [Header("Configurações do Cardume")]
     [Range(0.0f, 5.0f)]                                    //configura a velocidade do cardume que foi pego no flock
-    public float minSpeed;                                 
+    public float minSpeed = 0;                                 
     [Range(0.0f, 5.0f)]                                    //configura a velocidade do cardume que foi pego no flock
-    public float maxSpeed;
+    public float maxSpeed = 0;
     [Range(1.0f, 10.0f)]                                   //configura a o distanciamento dos vizinho
     public float neighbourDistance;
     [Range(0.0f, 5.0f)]                                    //configura a velocidade da volta que eles dao
@@ -37,5 +37,10 @@ public class FlockManager : MonoBehaviour
     private void Update()
     {
         goalPos = this.transform.position + new Vector3(Random.Range(-swinLimits.x, swinLimits.x), Random.Range(-swinLimits.y, swinLimits.y), Random.Range(-swinLimits.z, swinLimits.z));  //diz a posição de ida do peixe
+        if (Random.Range(0, 100) < 10)                                                                                                                                                     //se o random for menor que 10 ele muda o goal position
+        {
+            goalPos = this.transform.position + new Vector3(Random.Range(-swinLimits.x, swinLimits.x), Random.Range(-swinLimits.y, swinLimits.y), Random.Range(-swinLimits.z, swinLimits.z));
+        }
+    
     }
 }
